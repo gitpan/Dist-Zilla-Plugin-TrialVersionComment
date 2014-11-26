@@ -39,7 +39,7 @@ no_index:
 provides:
   Dist::Zilla::Plugin::TrialVersionComment:
     file: lib/Dist/Zilla/Plugin/TrialVersionComment.pm
-    version: '0.001'
+    version: '0.002'
 requires:
   Dist::Zilla::Plugin::MetaResources: '4.300039'
   Dist::Zilla::Role::FileFinderUser: '0'
@@ -56,7 +56,7 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-TrialVersionComment
   homepage: https://github.com/karenetheridge/Dist-Zilla-Plugin-TrialVersionComment
   repository: https://github.com/karenetheridge/Dist-Zilla-Plugin-TrialVersionComment.git
-version: '0.001'
+version: '0.002'
 x_Dist_Zilla:
   perl:
     version: '5.021005'
@@ -635,7 +635,7 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: v0.001
+          tag: v0.002
           tag_format: v%v%t
           tag_message: v%v%t
           time_zone: local

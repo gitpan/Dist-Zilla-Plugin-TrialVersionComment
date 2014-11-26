@@ -1,7 +1,7 @@
 use strict;
 use warnings FATAL => 'all';
 
-use Test::Requires 'Dist::Zilla::Plugin::OurPkgVersion';
+use Test::Requires 'Dist::Zilla::Plugin::SurgicalPkgVersion';
 
 use Test::More;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
@@ -15,13 +15,14 @@ my $tzil = Builder->from_config(
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
                 [ GatherDir => ],
-                [ OurPkgVersion => ],
+                [ SurgicalPkgVersion => ],
                 #[ 'TrialVersionComment' ], # not needed
             ),
             path(qw(source lib Foo.pm)) => <<'FOO',
 package Foo;
-# VERSION
-# TRIAL comment will be added above, before the VERSION placeholder
+# ABSTRACT: I am full of foo!
+
+# TRIAL comment will be added above, into the blank
 1;
 FOO
         },
@@ -42,8 +43,8 @@ my $content = $file->slurp_utf8;
 
 like(
     $content,
-    qr/\$\S*VERSION = '0\.001'; # TRIAL/m,
-    'TRIAL comment added to $VERSION assignment by [OurPkgVersion]',
+    qr/\$\S*VERSION = '0\.001'; # TRIAL$/m,
+    'TRIAL comment added to $VERSION assignment by [SurgicalPkgVersion]',
 );
 
 diag 'got log messages: ', explain $tzil->log_messages

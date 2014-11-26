@@ -14,7 +14,7 @@ my $tzil = Builder->from_config(
             path(qw(source dist.ini)) => simple_ini(
                 [ GatherDir => ],
                 [ PkgVersion => ],
-                [ 'TrialVersionComment' ],
+                #[ 'TrialVersionComment' ], # not needed
             ),
             path(qw(source lib Foo.pm)) => <<'FOO',
 package Foo;
@@ -41,7 +41,7 @@ my $content = $file->slurp_utf8;
 like(
     $content,
     qr/\$\S*VERSION = '0\.001'; # TRIAL$/m,
-    'TRIAL comment added to $VERSION assignment that [PkgVersion] inserted',
+    'TRIAL comment added to $VERSION assignment by [PkgVersion]',
 );
 
 diag 'got log messages: ', explain $tzil->log_messages

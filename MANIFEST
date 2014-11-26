@@ -21,7 +21,10 @@ t/05-comments.t
 t/06-my-version.t
 t/10-pkgversion.t
 t/11-ourpkgversion.t
-t/12-bumpversionafterrelease.t
+t/12-rewriteversion.t
+t/13-overridepkgversion.t
+t/14-surgicalpkgversion.t
+t/15-pgkversionifmodulewithpod.t
 weaver.ini
 xt/author/00-compile.t
 xt/author/clean-namespaces.t

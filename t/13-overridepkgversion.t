@@ -1,21 +1,13 @@
 use strict;
 use warnings FATAL => 'all';
 
-use Test::Requires 'Dist::Zilla::Plugin::BumpVersionAfterRelease';
+use Test::Requires 'Dist::Zilla::Plugin::OverridePkgVersion';
 
 use Test::More;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
-use PadWalker 'closed_over';
-
-my $original_content = <<'FOO';
-package Foo;
-our $VERSION = '0.001';
-# TRIAL comment will be added above
-1;
-FOO
 
 my $tzil = Builder->from_config(
     { dist_root => 't/does-not-exist' },
@@ -23,20 +15,17 @@ my $tzil = Builder->from_config(
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
                 [ GatherDir => ],
-                [ 'TrialVersionComment' ],
-                [ BumpVersionAfterRelease => ],
+                [ OverridePkgVersion => ],
+                #[ 'TrialVersionComment' ], # not needed
             ),
-            path(qw(source lib Foo.pm)) => $original_content,
+            path(qw(source lib Foo.pm)) => <<'FOO',
+package Foo;
+# VERSION
+# TRIAL comment will be added above, before the VERSION placeholder
+1;
+FOO
         },
     },
-);
-
-my ($bumpversion_closures) = closed_over(\&Dist::Zilla::Plugin::BumpVersionAfterRelease::rewrite_version);
-
-like(
-    $original_content,
-    ${$bumpversion_closures->{'$assign_regex'}},
-    '$VERSION declaration is something that [BumpVersionAfterRelease] will recognize',
 );
 
 $tzil->is_trial(1);
@@ -53,8 +42,8 @@ my $content = $file->slurp_utf8;
 
 like(
     $content,
-    qr/^our \$VERSION = '0\.001'; # TRIAL$/m,
-    'TRIAL comment added to $VERSION assignment',
+    qr/\$\S*VERSION = '0\.001'; # TRIAL/m,
+    'TRIAL comment added to $VERSION assignment by [OverridePkgVersion]',
 );
 
 diag 'got log messages: ', explain $tzil->log_messages

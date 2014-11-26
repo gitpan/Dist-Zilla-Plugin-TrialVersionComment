@@ -1,8 +1,8 @@
 use strict;
 use warnings;
 package Dist::Zilla::Plugin::TrialVersionComment;
-# git description: 214026b
-$Dist::Zilla::Plugin::TrialVersionComment::VERSION = '0.001';
+# git description: v0.001-4-g7418bc0
+$Dist::Zilla::Plugin::TrialVersionComment::VERSION = '0.002';
 # ABSTRACT: Add a # TRIAL comment after your version declaration in trial # releases
 # KEYWORDS: plugin modules package version comment trial release
 # vim: set ts=8 sw=4 tw=78 et :
@@ -96,7 +96,7 @@ Dist::Zilla::Plugin::TrialVersionComment - Add a # TRIAL comment after your vers
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 
@@ -106,19 +106,19 @@ In your F<dist.ini>:
 
 =head1 DESCRIPTION
 
-This is a L<Dist::Zilla> plugin that  munges your F<.pm> files to add a
+This is a L<Dist::Zilla> plugin that munges your F<.pm> files to add a
 C<# TRIAL> comment after C<$VERSION> assignments, if the release is C<--trial>.
 
 If the distribution is not a C<--trial> release (i.e. C<release_status> in
 metadata is C<stable>), this plugin does nothing.
 
-=for stopwords PkgVersion OurPkgVersion
+=for stopwords PkgVersion OurPkgVersion RewriteVersion
 
-A C<$VERSION> assignment needs to exist in the module for any content to be
-added, so you need to position this plugin in F<dist.ini> after any
-C<$VERSION>-adding plugins such as
-L<[PkgVersion]|Dist::Zilla::Plugin::PkgVersion> or
-L<[OurPkgVersion]|Dist::Zilla::Plugin::OurPkgVersion>.
+Other plugins that munge versions into files also add the C<# TRIAL> comment (such as
+L<[PkgVersion]|Dist::Zilla::Plugin::PkgVersion>,
+L<[OurPkgVersion]|Dist::Zilla::Plugin::OurPkgVersion>, and
+L<[RewriteVersion]|Dist::Zilla::Plugin::RewriteVersion>, so you would
+generally only need this plugin if you added the version yourself, manually.
 
 Nothing currently parses these comments, but the idea is that things like
 L<Module::Metadata> might make use of this in the future.
