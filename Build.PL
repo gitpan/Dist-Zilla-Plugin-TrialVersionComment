@@ -78,7 +78,7 @@ EOW
         "Karen Etheridge <ether\@cpan.org>"
       ],
       "dist_name" => "Dist-Zilla-Plugin-TrialVersionComment",
-      "dist_version" => "0.002",
+      "dist_version" => "0.003",
       "license" => "perl",
       "module_name" => "Dist::Zilla::Plugin::TrialVersionComment",
       "recommends" => {},
@@ -88,6 +88,7 @@ EOW
         "Dist::Zilla::Role::FileFinderUser" => 0,
         "Dist::Zilla::Role::FileMunger" => 0,
         "Dist::Zilla::Role::PPI" => 0,
+        "Module::Runtime" => 0,
         "Moose" => 0,
         "namespace::autoclean" => 0,
         "perl" => "5.009005",

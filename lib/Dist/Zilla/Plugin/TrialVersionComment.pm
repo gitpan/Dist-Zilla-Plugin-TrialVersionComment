@@ -1,8 +1,8 @@
 use strict;
 use warnings;
 package Dist::Zilla::Plugin::TrialVersionComment;
-# git description: v0.001-4-g7418bc0
-$Dist::Zilla::Plugin::TrialVersionComment::VERSION = '0.002';
+# git description: v0.002-1-g506e5e1
+$Dist::Zilla::Plugin::TrialVersionComment::VERSION = '0.003';
 # ABSTRACT: Add a # TRIAL comment after your version declaration in trial # releases
 # KEYWORDS: plugin modules package version comment trial release
 # vim: set ts=8 sw=4 tw=78 et :
@@ -14,6 +14,7 @@ with
     'Dist::Zilla::Role::FileFinderUser' =>
         { default_finders => [ ':InstallModules', ':ExecFiles' ] },
 ;
+use Module::Runtime 'module_notional_filename';
 use namespace::autoclean;
 
 sub munge_files
@@ -25,8 +26,8 @@ sub munge_files
 
     foreach my $file ( @{ $self->found_files })
     {
-        next if $file->is_bytes;
-        next if not $file->does('Dist::Zilla::Role::MutableFile');
+        next if $file->can('is_bytes') and $file->is_bytes;
+        next if $INC{module_notional_filename('Dist::Zilla::Role::MutableFile')} and not $file->does('Dist::Zilla::Role::MutableFile');
 
         # it would be nice if we could just ask Module::Metadata for the line
         # (and character offset!) that it already found - might be faster
@@ -96,7 +97,7 @@ Dist::Zilla::Plugin::TrialVersionComment - Add a # TRIAL comment after your vers
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 

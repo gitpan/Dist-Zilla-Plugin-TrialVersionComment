@@ -79,6 +79,7 @@ my %WriteMakefileArgs = (
     "Dist::Zilla::Role::FileFinderUser" => 0,
     "Dist::Zilla::Role::FileMunger" => 0,
     "Dist::Zilla::Role::PPI" => 0,
+    "Module::Runtime" => 0,
     "Moose" => 0,
     "namespace::autoclean" => 0,
     "strict" => 0,
@@ -96,7 +97,7 @@ my %WriteMakefileArgs = (
     "Test::Requires" => 0,
     "if" => 0
   },
-  "VERSION" => "0.002",
+  "VERSION" => "0.003",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -110,6 +111,7 @@ my %FallbackPrereqs = (
   "ExtUtils::MakeMaker" => 0,
   "File::Spec" => 0,
   "Module::Build::Tiny" => "0.039",
+  "Module::Runtime" => 0,
   "Moose" => 0,
   "PadWalker" => 0,
   "Path::Tiny" => 0,

@@ -109,6 +109,7 @@ do { my $x = {
                                       'Dist::Zilla::Role::FileFinderUser' => '0',
                                       'Dist::Zilla::Role::FileMunger' => '0',
                                       'Dist::Zilla::Role::PPI' => '0',
+                                      'Module::Runtime' => '0',
                                       'Moose' => '0',
                                       'namespace::autoclean' => '0',
                                       'perl' => '5.009005',
